@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva tu Cita - Manicura</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #f8f9ff 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(200, 150, 180, 0.15);
+            overflow: hidden;
+            border: 1px solid rgba(255, 192, 203, 0.2);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffc0cb 100%);
+            padding: 50px 30px;
+            text-align: center;
+            color: #6b4158;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 100%;
+        }
+
+        .header-text {
+            text-align: left;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.85;
+            font-weight: 300;
+        }
+
+        .form-container {
+            padding: 40px 35px;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #6b4158;
+            font-weight: 500;
+            font-size: 0.95em;
+            letter-spacing: 0.5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1.5px solid #f0d5e0;
+            border-radius: 15px;
+            font-size: 1em;
+            transition: all 0.3s;
+            font-family: inherit;
+            background: white;
+            color: #6b4158;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #ffb6c1;
+            box-shadow: 0 0 0 4px rgba(255, 182, 193, 0.1);
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .service-option {
+            position: relative;
+        }
+
+        .service-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .service-label {
+            display: block;
+            padding: 25px 15px;
+            border: 1.5px solid #f0d5e0;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+            color: #6b4158;
+        }
+
+        .service-option input[type="radio"]:checked + .service-label {
+            border-color: #ffb6c1;
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffc0cb 100%);
+            color: #6b4158;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.3);
+        }
+
+        .service-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .service-price {
+            font-size: 0.9em;
+            opacity: 0.75;
+        }
+
+        .extras-section {
+            margin-top: 35px;
+            padding: 25px;
+            background: linear-gradient(135deg, #fff9fc 0%, #fef5f8 100%);
+            border-radius: 15px;
+            border: 1.5px solid #f0d5e0;
+        }
+
+        .extras-title {
+            color: #6b4158;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .extra-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 12px;
+            background: white;
+            border-radius: 12px;
+            border: 1.5px solid #f0d5e0;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .extra-option:hover {
+            border-color: #ffb6c1;
+            transform: translateX(5px);
+        }
+
+        .extra-option input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            margin-right: 15px;
+            cursor: pointer;
+            accent-color: #ffb6c1;
+        }
+
+        .extra-info {
+            flex: 1;
+        }
+
+        .extra-name {
+            font-weight: 600;
+            color: #6b4158;
+            margin-bottom: 3px;
+        }
+
+        .extra-price {
+            color: #8b5a6f;
+            font-size: 0.9em;
+        }
+
+        .whatsapp-section {
+            margin-top: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+            border-radius: 15px;
+            border: 1.5px solid #c8e6c9;
+        }
+
+        .whatsapp-section label {
+            color: #2e7d32;
+        }
+
+        .whatsapp-section input {
+            border-color: #c8e6c9;
+        }
+
+        .whatsapp-section input:focus {
+            border-color: #81c784;
+            box-shadow: 0 0 0 4px rgba(129, 199, 132, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffc0cb 100%);
+            color: #6b4158;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.15em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 182, 193, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .note {
+            font-size: 0.85em;
+            color: #8b5a6f;
+            margin-top: 15px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .confirmation {
+            display: none;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .confirmation.show {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 4.5em;
+            margin-bottom: 20px;
+        }
+
+        .confirmation h2 {
+            color: #6b4158;
+            margin-bottom: 15px;
+            font-weight: 400;
+            font-size: 2em;
+        }
+
+        .appointment-details {
+            background: linear-gradient(135deg, #fff9fc 0%, #fef5f8 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: left;
+            border: 1.5px solid #f0d5e0;
+        }
+
+        .appointment-details p {
+            margin: 12px 0;
+            color: #6b4158;
+            line-height: 1.6;
+        }
+
+        .appointment-details strong {
+            color: #8b5a6f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <img src="img/logo_uñas.jpg" alt="Logo" class="logo">
+                <div class="header-text">
+                    <h1>Glam N&L</h1>
+                    <p>Elegancia en cada detalle</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container" id="formContainer">
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label for="name">Nombre completo</label>
+                    <input type="text" id="name" required placeholder="Ingresa tu nombre">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" required placeholder="+51 999 999 999">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" required placeholder="tu@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Servicio Principal</label>
+                    <div class="service-grid">
+                        <div class="service-option">
+                            <input type="radio" id="basic" name="service" value="Manicura básica|30" required>
+                            <label for="basic" class="service-label">
+                                <div class="service-name">Manicura Básica</div>
+                                <div class="service-price">S/30</div>
+                            </label>
+                        </div>
+                        <div class="service-option">
+                            <input type="radio" id="gel" name="service" value="Manicura en gel|50">
+                            <label for="gel" class="service-label">
+                                <div class="service-name">Manicura en Gel</div>
+                                <div class="service-price">S/50</div>
+                            </label>
+                        </div>
+                        <div class="service-option">
+                            <input type="radio" id="acrylic" name="service" value="Uñas acrílicas|70">
+                            <label for="acrylic" class="service-label">
+                                <div class="service-name">Uñas Acrílicas</div>
+                                <div class="service-price">S/70</div>
+                            </label>
+                        </div>
+                        <div class="service-option">
+                            <input type="radio" id="spa" name="service" value="Manicura Spa|60">
+                            <label for="spa" class="service-label">
+                                <div class="service-name">Manicura Spa</div>
+                                <div class="service-price">S/60</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="extras-section">
+                    <div class="extras-title"> Servicios Extras</div>
+                    <div class="extra-option">
+                        <input type="checkbox" id="extra1" value="Nail art|20">
+                        <div class="extra-info">
+                            <div class="extra-name">Nail Art Personalizado</div>
+                            <div class="extra-price">+S/20</div>
+                        </div>
+                    </div>
+                    <div class="extra-option">
+                        <input type="checkbox" id="extra2" value="Masaje de manos|15">
+                        <div class="extra-info">
+                            <div class="extra-name">Masaje de Manos</div>
+                            <div class="extra-price">+S/15</div>
+                        </div>
+                    </div>
+                    <div class="extra-option">
+                        <input type="checkbox" id="extra3" value="Tratamiento hidratante|18">
+                        <div class="extra-info">
+                            <div class="extra-name">Tratamiento Hidratante</div>
+                            <div class="extra-price">+S/18</div>
+                        </div>
+                    </div>
+                    <div class="extra-option">
+                        <input type="checkbox" id="extra4" value="Parafina|25">
+                        <div class="extra-info">
+                            <div class="extra-name">Baño de Parafina</div>
+                            <div class="extra-price">+S/25</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Fecha</label>
+                    <input type="date" id="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Hora</label>
+                    <select id="time" required>
+                        <option value="">Selecciona una hora</option>
+                        <option value="09:00">09:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="12:00">12:00 PM</option>
+                        <option value="14:00">02:00 PM</option>
+                        <option value="15:00">03:00 PM</option>
+                        <option value="16:00">04:00 PM</option>
+                        <option value="17:00">05:00 PM</option>
+                        <option value="18:00">06:00 PM</option>
+                    </select>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="notes">Notas adicionales (opcional)</label>
+                    <textarea id="notes" rows="3" placeholder="Algún requerimiento especial..."></textarea>
+                </div>
+
+                <button type="submit" class="btn">RESERVAR CITA</button>
+            </form>
+        </div>
+
+        <div class="confirmation" id="confirmation">
+            <div class="success-icon">✨</div>
+            <h2>¡Cita Confirmada!</h2>
+            <p>Te hemos enviado la confirmación por WhatsApp</p>
+            <div class="appointment-details" id="appointmentDetails"></div>
+            <button class="btn" onclick="resetForm()">Nueva Reserva</button>
+        </div>
+    </div>
+
+    <script>
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('min', today);
+
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // CAMBIA ESTE NÚMERO POR TU NÚMERO DE WHATSAPP
+            const tuWhatsApp = '904131222'; // Ejemplo: 51987654321
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const serviceData = document.querySelector('input[name="service"]:checked').value.split('|');
+            const serviceName = serviceData[0];
+            const servicePrice = parseInt(serviceData[1]);
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const notes = document.getElementById('notes').value;
+
+            const extras = [];
+            let extrasTotal = 0;
+            document.querySelectorAll('.extra-option input[type="checkbox"]:checked').forEach(checkbox => {
+                const extraData = checkbox.value.split('|');
+                extras.push(extraData[0]);
+                extrasTotal += parseInt(extraData[1]);
+            });
+
+            const totalPrice = servicePrice + extrasTotal;
+
+            const dateObj = new Date(date + 'T00:00:00');
+            const formattedDate = dateObj.toLocaleDateString('es-ES', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            let message = `*NUEVA CITA - NAIL SALON*%0A%0A`;
+            message += `👤 *Cliente:* ${name}%0A`;
+            message += `📞 *Teléfono:* ${phone}%0A`;
+            message += `✉️ *Email:* ${email}%0A%0A`;
+            message += `💅 *Servicio:* ${serviceName} (S/${servicePrice})%0A`;
+            
+            if (extras.length > 0) {
+                message += `✨ *Servicios Extra:*%0A`;
+                extras.forEach(extra => {
+                    message += `   • ${extra}%0A`;
+                });
+                message += `%0A`;
+            }
+            
+            message += `💰 *Total:* S/${totalPrice}%0A%0A`;
+            message += `📅 *Fecha:* ${formattedDate}%0A`;
+            message += `🕐 *Hora:* ${time}%0A`;
+            
+            if (notes) {
+                message += `%0A📝 *Notas:* ${notes}`;
+            }
+
+            const whatsappURL = `https://wa.me/${tuWhatsApp}?text=${message}`;
+
+            window.open(whatsappURL, '_blank');
+
+            const detailsHTML = `
+                <p><strong>Nombre:</strong> ${name}</p>
+                <p><strong>Teléfono:</strong> ${phone}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Servicio:</strong> ${serviceName} (S/${servicePrice})</p>
+                ${extras.length > 0 ? `<p><strong>Servicios Extra:</strong><br>${extras.join('<br>')}</p>` : ''}
+                <p><strong>Total:</strong> S/${totalPrice}</p>
+                <p><strong>Fecha:</strong> ${formattedDate}</p>
+                <p><strong>Hora:</strong> ${time}</p>
+                ${notes ? `<p><strong>Notas:</strong> ${notes}</p>` : ''}
+            `;
+
+            document.getElementById('appointmentDetails').innerHTML = detailsHTML;
+            document.getElementById('formContainer').style.display = 'none';
+            document.getElementById('confirmation').classList.add('show');
+        });
+
+        function resetForm() {
+            document.getElementById('appointmentForm').reset();
+            document.getElementById('formContainer').style.display = 'block';
+            document.getElementById('confirmation').classList.remove('show');
+        }
+    </script>
+</body>
+</html>
